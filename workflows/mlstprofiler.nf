@@ -66,14 +66,18 @@ workflow MLSTPROFILER {
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
     //
     ch_input = Channel.fromSamplesheet("input")
-               .map {meta, assembly_fasta, fastq_1, fastq_2 -> tuple(meta, [fastq_1, fastq_2])}
-    ch_input.view()
+                .branch { meta, assembly_fasta, fastq_1, fastq_2 ->
+                    reads: !assembly_fasta
+                        return [meta, [fastq_1, fastq_2]]
+                    assemblies: assembly_fasta
+                        return [meta, assembly_fasta]
+                }
 
     //
     // MODULE: Run FastQC
     //
     FASTQC (
-        ch_input
+        ch_input.reads
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 

@@ -18,7 +18,7 @@
                 "anyOf": [
                     {
                         "type": "string",
-                        "pattern": "^\\S+\\.f(ast)?a(\\.gz)?$"
+                        "pattern": "^\\S+$"
                     },
                     {
                         "type": "string",
