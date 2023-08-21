@@ -18,8 +18,7 @@ Here, the `samplesheet.csv` lists the sample assemblies or paired reads in a CSV
 
 **samplesheet.csv**:
 
-| sample | assembly_fasta | fastq_1 | fastq_2 |
-|---|---|---|---|
-| SampleA | A.fasta | | |
-| SampleB | | B_1.fastq.gz | B_2.fastq.gz |
-
+| sample  | assembly_fasta | fastq_1      | fastq_2      |
+| ------- | -------------- | ------------ | ------------ |
+| SampleA | A.fasta        |              |              |
+| SampleB |                | B_1.fastq.gz | B_2.fastq.gz |
