@@ -1,4 +1,4 @@
 sample,assembly_fasta,fastq_1,fastq_2
 SAMPLE1_PE,,https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/illumina/amplicon/sample1_R1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/illumina/amplicon/sample1_R2.fastq.gz
 SAMPLE2_PE,,https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/illumina/amplicon/sample2_R1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/illumina/amplicon/sample2_R2.fastq.gz
-assembly_sample,https://github.com/nf-core/test-datasets/blob/viralrecon/genome/NC_045512.2/GCF_009858895.2_ASM985889v3_genomic.200409.fna.gz,,
+S_HeidelbergSL476,https://github.com/apetkau/snvphyl-validations/raw/master/salmonella_heidelberg/reference/S_HeidelbergSL476.fasta,,
