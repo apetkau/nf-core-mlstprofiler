@@ -88,7 +88,7 @@ workflow MLSTPROFILER {
     )   
     ch_versions = ch_versions.mix(SHOVILL.out.versions)
 
-    ch_all_assemblies = ch_input.assemblies.join(SHOVILL.out.contigs)
+    ch_all_assemblies = ch_input.assemblies //.join(SHOVILL.out.contigs)
 
     MLST (
         ch_all_assemblies
