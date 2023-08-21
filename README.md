@@ -2,6 +2,10 @@
 
 This pipeline is an example MLST pipeline (using <https://github.com/tseemann/mlst>).
 
+A write-up of this pipeline is at <https://github.com/phac-nml/nf-pipelines/issues/3>.
+
+*Note: This isn't necessarily going to be the final implementation of allele calling. This is just a test pipeline.*
+
 If you have Nextflow and Docker installed, you can test it out with:
 
 ```bash
