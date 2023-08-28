@@ -69,26 +69,39 @@ workflow MLSTPROFILER {
     //
     ch_input = Channel.fromSamplesheet("input")
                 .branch { meta, assembly_fasta, fastq_1, fastq_2 ->
-                    reads: !assembly_fasta
-                        return [meta, [fastq_1, fastq_2]]
                     assemblies: assembly_fasta
-                        return [meta, assembly_fasta]
+                        return [meta + [single_end: false], assembly_fasta]
+                    reads_paired: !assembly_fasta && (fastq_1 && fastq_2)
+                        return [meta + [single_end: false], [fastq_1, fastq_2]]
+                    reads_single: !assembly_fasta && fastq_1
+                        return [meta + [single_end: true], fastq_1]
                 }
+
+    ch_assemblies = ch_input.assemblies ?: Channel.empty()
+
+    ch_reads = Channel.empty()
+    if (ch_input.reads_paired && ch_input.reads_single) {
+        ch_reads = ch_input.reads_paired.concat(ch_input.reads_single)
+    } else if (ch_input.reads_paired) {
+        ch_reads = ch_input.reads_paired
+    } else if (ch_input.reads_single) {
+        ch_reads = ch_input.reads_single
+    }
 
     //
     // MODULE: Run FastQC
     //
     FASTQC (
-        ch_input.reads
+        ch_reads
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     SHOVILL (
-        ch_input.reads
+        ch_reads
     )   
     ch_versions = ch_versions.mix(SHOVILL.out.versions)
 
-    ch_all_assemblies = ch_input.assemblies //.join(SHOVILL.out.contigs)
+    ch_all_assemblies = ch_assemblies //.concat(SHOVILL.out.contigs)
 
     MLST (
         ch_all_assemblies
